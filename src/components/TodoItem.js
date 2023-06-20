@@ -9,6 +9,7 @@ import styles from '../styles/modules/todoItem.module.scss';
 import { getClasses } from '../utils/getClasses';
 import CheckButton from './CheckButton';
 import TodoModal from './TodoModel';
+import { Cookies } from 'react-cookie';
 
 const child = {
   hidden: { y: 20, opacity: 0 },
@@ -22,6 +23,7 @@ function TodoItem({ todo }) {
   const dispatch = useDispatch();
   const [checked, setChecked] = useState(false);
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
+  const [status, setStatus] = useState("")
 
   useEffect(() => {
     if (todo.status === 'complete') {
@@ -31,15 +33,51 @@ function TodoItem({ todo }) {
     }
   }, [todo.status]);
 
-  const handleCheck = () => {
+  const cookies = new Cookies();
+  const token = cookies.get('token')
+
+  const handleCheck = async() => {
     setChecked(!checked);
-    dispatch(
-      updateTodo({ ...todo, status: checked ? 'incompleted' : 'complete' })
-    );
+    // dispatch(
+    //   updateTodo({ ...todo, status: checked ? 'incompleted' : 'complete' })
+    // );
+
+    if (checked){
+      setStatus("completed")
+    }
+
+    await fetch('http://localhost:8080/task/status',{
+        method: 'PUT',
+        headers:{
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': `Bearer ${token}`
+        },
+        credentials: 'include',
+        // mode: 'no-cors',
+        body: new URLSearchParams({
+            'status': status,
+            'id': todo.id,
+        })
+    })
   };
 
-  const handleDelete = () => {
-    dispatch(deleteTodo(todo.id));
+  const handleDelete = async() => {
+    // dispatch(deleteTodo(todo.id));
+
+    const url = 'http://localhost:8080/task/'+ todo.id
+    await fetch(url,{
+      method: 'DELETE',
+      headers:{
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': `Bearer ${token}`
+      },
+      credentials: 'include',
+      // mode: 'no-cors',
+      // body: new URLSearchParams({
+      //     'status': status,
+      //     'id': todo.id,
+      // })
+  })
     toast.success('Todo Deleted Successfully');
   };
 
@@ -70,7 +108,8 @@ function TodoItem({ todo }) {
               {todo.file}
             </div>
             <p className={styles.time}>
-              {format(new Date(todo.time), 'p, MM/dd/yyyy')}
+              {/* {format(new Date(todo.time), 'p, MM/dd/yyyy')} */}
+              {todo.time}
             </p>
           </div>
         </div>

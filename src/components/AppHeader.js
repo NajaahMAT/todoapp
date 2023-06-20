@@ -13,10 +13,6 @@ function AppHeader() {
   const initialFilterDates = useSelector((state) => state.todo.filterDates);
   const [filterStatus, setFilterStatus] = useState(initialFilterStatus);
   const dispatch = useDispatch();
-  // const [dateRange, setDateRange] = useState({
-  //   startDate: new Date(),
-  //   endDate: new Date(),
-  // });
 
   const updateFilter = (e) => {
     setFilterStatus(e.target.value);

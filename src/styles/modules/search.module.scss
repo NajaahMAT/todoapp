@@ -1,6 +1,4 @@
 .searchField{
-    // margin-top: 8px;
-    // margin-right: 16px;
     background-color: #2a7e91;
     color:var(--white);
     display: inline-block;
@@ -15,14 +13,12 @@
 	cursor: pointer;
 	overflow: hidden;
 	width:27%;
-	// align-items: center;
-	// align-content: center;
 }
 
 .inputBox {
-	// padding: 5px 8px 4px 8px;
 	border-radius: 3px;
 	width: 100%;
+	text-align: center;
   }
 
   .calendarWrap {

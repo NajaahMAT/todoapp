@@ -1,20 +1,51 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { Cookies } from 'react-cookie';
 
-const getInitialTodo = () => {
-  // getting todo list
-  const localTodoList = window.localStorage.getItem('todoList');
-  // if todo list is not empty
-  if (localTodoList) {
-    return JSON.parse(localTodoList);
-  }
-  window.localStorage.setItem('todoList', []);
-  return [];
-};
+// const getInitialTodo = () => {
+//   // getting todo list
+//   const localTodoList = window.localStorage.getItem('todoList');
+//   // if todo list is not empty
+//   if (localTodoList) {
+//     return JSON.parse(localTodoList);
+//   }
+
+
+//   window.localStorage.setItem('todoList', []);
+//   return [];
+// };
+
+// const cookies = new Cookies();
+// const token = cookies.get('token')
+// const user_id = cookies.get('user_id')
+
+// const getAllTasksUrl = 'http://localhost:8080/task/user/' + user_id
+
+// const getInitialTodo = async() => {
+//     const response = await fetch( getAllTasksUrl, {
+//         method: 'GET',
+//         headers:{
+//           'Content-Type': 'application/x-www-form-urlencoded',
+//           'Authorization': `Bearer ${token}`
+//         },
+//         credentials: 'include',
+//         mode: 'no-cors',
+//     })
+
+//     const todoList = await response.json()
+//     console.log(todoList)
+//     // return todoList
+
+//     if (todoList) {
+//       return todoList;
+//     }
+//     window.localStorage.setItem('todoList', []);
+//     return [];
+// }
 
 const initialValue = {
   filterStatus: 'all',
   filterDates: {startDate: new Date(new Date().getTime() - 30 * 24 * 60 * 60 * 1000), endDate: new Date()},
-  todoList: getInitialTodo(),
+  // todoList: getInitialTodo(),
 };
 
 export const todoSlice = createSlice({

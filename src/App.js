@@ -1,24 +1,30 @@
 import React from 'react';
 import { Toaster } from 'react-hot-toast';
-import AppContent from './components/AppContent';
-import AppHeader from './components/AppHeader';
-import PageTitle from './components/PageTitle';
-import styles from './styles/modules/app.module.scss';
 import Navbar from './components/Navbar';
+import SignIn from './components/SignIn';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './components/Home';
+import Register from './components/Register';
+import TaskManager from './components/TaskManager';
 
 function App() {
   return (
     <>
-      <div data-testid = "app">
-        <Navbar />
-        <div className="container" data-testid="" >
-          <PageTitle>TODO List</PageTitle>
-          <div className={styles.app__wrapper}>
-            <AppHeader />
-            <AppContent />
-          </div>
-        </div>
-        <Toaster
+      <div className = "App" data-testid = "app">
+      <BrowserRouter>
+          <Navbar />
+          <main>
+              <Routes>
+                 <Route path="*" element={<SignIn/>} />
+                 <Route path="/" element={<Home/>} />
+                 <Route path="signin" element={<SignIn/>} />
+                 <Route path="register" element={<Register/>} />
+                 <Route path="tasks" element={<TaskManager/>} />
+                 {/* <Route path="signout" element={<Home/>} /> */}
+              </Routes>
+          </main>
+       </BrowserRouter>
+       <Toaster
           position="bottom-right"
           toastOptions={{
             style: {

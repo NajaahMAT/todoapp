@@ -10,25 +10,12 @@ import './styles/GlobalStyles.css';
 import { store } from './app/store';
 import { Auth0Provider } from '@auth0/auth0-react';
 
-// ReactDOM.render(
-//   <React.StrictMode>
-//     <Provider store={store}>
-//       <App />
-//     </Provider>
-//   </React.StrictMode>,
-//   document.getElementById('root')
-// );
-
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
 
 ReactDOM.render(
   <React.StrictMode>
-    <Auth0Provider
-      domain={domain}
-      clientId={clientId}
-      redirectUri={window.location.origin}
-    >
+    <Auth0Provider  domain={domain} clientId={clientId} redirect_uri={window.location.origin}>
       <Provider store={store}>
         <App />
       </Provider>
@@ -36,4 +23,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
-
